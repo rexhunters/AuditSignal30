@@ -1,55 +1,160 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>AuditSignal 30</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Signal30 — Audit Opportunity Intelligence</title>
 <style>
-:root{--bg:#f4f6fb;--card:#fff;--ink:#172033;--muted:#68738a;--line:#e4e8f0;--accent:#3b5ccc;--good:#16845b;--warn:#a56600}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 Inter,system-ui,Arial,sans-serif}
-header{background:#111a35;color:#fff;padding:24px 5vw}header h1{margin:0 0 4px;font-size:26px}header p{margin:0;color:#cbd3eb}.wrap{max-width:1240px;margin:24px auto;padding:0 20px}
-.toolbar{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;gap:10px;flex-wrap:wrap;position:sticky;top:10px;z-index:5;box-shadow:0 5px 20px #1720330d}
-input,select,button,textarea{font:inherit;border:1px solid var(--line);border-radius:9px;padding:10px;background:#fff;color:var(--ink)}input{min-width:260px;flex:1}button{cursor:pointer;background:var(--accent);border-color:var(--accent);color:white}button.secondary{background:#fff;color:var(--accent)}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}.stat b{display:block;font-size:24px}.stat span{color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:17px;box-shadow:0 3px 14px #17203308}.top{display:flex;justify-content:space-between;gap:10px}.rank{color:var(--muted)}h2{font-size:18px;margin:0 0 3px}.tag{display:inline-block;margin:7px 6px 8px 0;padding:3px 8px;border-radius:999px;background:#eef1ff;color:var(--accent);font-size:12px}.tag.good{background:#e7f7ef;color:var(--good)}.tag.warn{background:#fff4de;color:var(--warn)}.label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em}.value{margin:3px 0 12px}.card a{color:var(--accent)}.actions{display:flex;gap:8px;flex-wrap:wrap}.actions button{padding:7px 10px;font-size:12px}.empty{padding:35px;text-align:center;color:var(--muted)}.modal{position:fixed;inset:0;background:#10182b99;display:none;align-items:center;justify-content:center;padding:20px;z-index:10}.modal.open{display:flex}.modalbox{background:#fff;border-radius:14px;max-width:720px;width:100%;max-height:90vh;overflow:auto;padding:22px}.modalbox textarea{width:100%;min-height:90px;margin:8px 0}.close{float:right;background:#fff;color:var(--ink);border-color:var(--line)}@media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
-</style>
-</head>
+:root{--ink:#0e1218;--card:#161c26;--card2:#1d2432;--line:#ffffff1f;--paper:#edeae1;--mute:#9da4b5;--gold:#d6a24e;--teal:#4fae9a;--red:#c0654b;--font-head:Georgia,serif;--font-body:Inter,system-ui,Arial,sans-serif;--font-mono:ui-monospace,SFMono-Regular,Menlo,monospace}*{box-sizing:border-box}body{margin:0;background:var(--ink);color:var(--paper);font:15px/1.55 var(--font-body)}.wrap{max-width:1060px;margin:auto;padding:0 22px}header{padding:26px 0 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:18px;align-items:center;flex-wrap:wrap}.brand{font:600 23px var(--font-head)}.brand span{color:var(--gold)}.live{font:11px var(--font-mono);color:var(--teal)}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--teal);margin-right:6px}.hero{padding:28px 0 16px;display:grid;grid-template-columns:1.4fr .8fr;gap:22px}.eyebrow{font:11px var(--font-mono);color:var(--gold);text-transform:uppercase;letter-spacing:.08em}.hero h1{font:clamp(30px,5vw,53px);line-height:1.05;margin:9px 0 12px;font-family:var(--font-head);font-weight:500}.hero p{color:var(--mute);max-width:640px;margin:0}.hero-note{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:18px}.hero-note strong{font:20px var(--font-head);color:var(--gold)}.stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:18px 0}.stat{padding:15px 17px;border-right:1px solid var(--line)}.stat:last-child{border:0}.n{font:24px var(--font-head);color:var(--gold)}.l{font:10px var(--font-mono);color:var(--mute);text-transform:uppercase}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.search,.select,.btn{padding:10px 12px;border:1px solid var(--line);border-radius:7px;background:var(--card);color:var(--paper);font:13px var(--font-body)}.search{flex:1;min-width:220px}.btn{cursor:pointer;color:var(--gold)}.btn.active{background:var(--gold);color:#1b1102;border-color:var(--gold);font-weight:600}.btn.primary{background:var(--gold);color:#1b1102;border-color:var(--gold)}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:9px;overflow:hidden}.card-head{padding:16px;cursor:pointer;display:flex;justify-content:space-between;gap:10px}.card-head:hover{background:var(--card2)}.name{font:600 19px var(--font-head)}.seg{font:10px var(--font-mono);color:var(--mute);text-transform:uppercase;margin-top:3px}.badge{font:10px var(--font-mono);padding:4px 7px;border-radius:4px;background:#d6a24e22;color:var(--gold);height:max-content}.body{display:none;border-top:1px solid var(--line);padding:0 16px 16px}.card.open .body{display:block}.row{padding:12px 0;border-bottom:1px solid var(--line)}.k{font:10px var(--font-mono);color:var(--teal);text-transform:uppercase}.row p{margin:4px 0 0;font-size:13px}.gap p{color:var(--mute);font-style:italic}.source{font-size:11px;color:var(--mute);padding-top:11px}.source a{color:var(--gold)}.stage{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}.stage button{font-size:11px;padding:5px 8px;border:1px solid var(--line);border-radius:4px;background:transparent;color:var(--mute);cursor:pointer}.stage button.current{color:var(--teal);border-color:var(--teal);background:#4fae9a22}.empty{grid-column:1/-1;text-align:center;padding:40px;color:var(--mute)}footer{padding:30px 0 45px;text-align:center;color:var(--mute);font-size:12px}@media(max-width:800px){.hero{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:0}.cards{grid-template-columns:1fr}.wrap{padding:0 15px}}
+</style></head>
 <body>
-<header><h1>AuditSignal 30</h1><p>Verification-first opportunity intelligence for Web3 security firms</p></header>
-<main class="wrap">
-<section class="toolbar">
-<input id="q" placeholder="Search account, signal, category..." />
-<select id="category"><option value="">All categories</option></select>
-<select id="confidence"><option value="">All confidence</option><option>High</option><option>Medium</option><option>Low</option></select>
-<select id="stage"><option value="">All stages</option><option>Research</option><option>Verified</option><option>Ready to contact</option><option>Contacted</option><option>Replied</option><option>Qualified</option><option>Disqualified</option></select>
-<button id="export">Export filtered CSV</button><button class="secondary" id="reset">Reset</button>
-</section>
-<section class="stats"><div class="stat"><b id="total">0</b><span>Visible accounts</span></div><div class="stat"><b id="verified">0</b><span>Verified</span></div><div class="stat"><b id="p1">0</b><span>P1 priority</span></div><div class="stat"><b id="contacted">0</b><span>Contacted</span></div></section>
-<section id="grid" class="grid"></section>
-</main>
-<div id="modal" class="modal"><div class="modalbox"><button class="close" onclick="closeModal()">Close</button><div id="modalContent"></div></div></div>
+<div class="wrap">
+  <header>
+    <div class="brand">Signal<span>30</span></div>
+    <div class="live"><span class="dot"></span><span id="liveText">LIVE DEMO · 3 SIGNALS LOADED</span></div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Security opportunity intelligence</div>
+      <h1>Find the moment<br>before the audit.</h1>
+      <p>Signal30 turns public protocol activity into evidence-led security conversations: what changed, why it matters, what is still unknown, and who to approach next.</p>
+    </div>
+    <div class="hero-note">
+      <div class="eyebrow">Built for</div>
+      <strong>Adevar Labs</strong>
+      <p style="margin-top:6px">A focused demo for smart-contract and infrastructure security teams.</p>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><div class="n" id="total">0</div><div class="l">signals loaded</div></div>
+    <div class="stat"><div class="n" id="verified">0</div><div class="l">verified</div></div>
+    <div class="stat"><div class="n" id="contacted">0</div><div class="l">contacted</div></div>
+    <div class="stat"><div class="n" id="actionable">0</div><div class="l">actionable</div></div>
+  </section>
+
+  <div class="toolbar">
+    <input class="search" id="search" placeholder="Search accounts, signals, categories...">
+    <select class="select" id="filter"><option value="all">All categories</option></select>
+    <button class="btn active" data-stage="all">All stages</button>
+    <button class="btn" data-stage="Research">Research</button>
+    <button class="btn" data-stage="Verified">Verified</button>
+    <button class="btn" data-stage="Contacted">Contacted</button>
+    <button class="btn primary" id="reset">Reset</button>
+  </div>
+
+  <section class="cards" id="cards"></section>
+
+  <footer>Signal30 · Evidence-led opportunity intelligence · Demo data requires live verification before outreach</footer>
+</div>
+
 <script>
-let accounts=[];
-const extraDefaults={signal_date:'',source_url:'',source_date:'',audit_status:'To verify',technical_contact:'',verification_status:'Unverified',priority:'P2',stage:'Research',owner:'',last_checked:'',next_action:'Verify current signal, audit status and technical owner'};
+const DATA=[
+  {id:'debridge',name:'deBridge',seg:'Cross-chain',conf:'Medium',observed:'deBridge added live support for Arc, a stablecoin-native Layer-1 built for payments, lending, FX and treasury management, connecting it to 18+ other chains.',fit:'New chain integration means new solver logic and settlement paths — a review surface separate from the original protocol audit.',gap:'No public statement confirms whether this specific integration has been independently reviewed.',source:'deBridge · 16 Sep 2026',url:'https://debridge.com/learn/blog/arc-is-live-on-debridge/'},
+  {id:'carbondefi',name:'Carbon DeFi',seg:'DEX infrastructure',conf:'Medium',observed:"Carbon DeFi's Bancor smart contracts have been licensed and deployed to multiple new chains and DEX environments.",fit:'A licensing model distributes the same contracts across different operators; one shared vulnerability could affect multiple deployments.',gap:"Confirm each licensee's current audit coverage and whether the latest deployment changed the reviewed code.",source:'CarbonDeFi blog · 2026',url:'https://www.carbondefi.xyz/blog/decentralized-arbitrage-trading-now-available-on-mantle-bancor-s-arb-fast-lane-bot-expands-to-mantle'},
+  {id:'alchemy',name:'Alchemy',seg:'Payments infrastructure',conf:'Medium',observed:'Alchemy is running a private beta of AgentPay, allowing AI agents to transact across Coinbase, Stripe, Visa, Mastercard and Circle systems via x402.',fit:'A pre-GA product moving money across multiple payment networks for autonomous agents is a natural pre-release review candidate.',gap:'No public timeline confirms general release or whether a security review is already scheduled.',source:'CoinDesk · 8 Apr 2026',url:'https://www.coindesk.com/tech/2026/04/08/blockchain-development-firm-alchemy-unveils-interoperable-layer-for-ai-payments'}
+];
+
+const STAGES=['Research','Verified','Contacted'];
+let state={};
+let openCards = new Set(); // Track expanded cards
+
+try{ state=JSON.parse(localStorage.getItem('signal30_demo_stage')||'{}') }catch(e){};
+
+let category='all', stage='all';
 const $=id=>document.getElementById(id);
-async function load(){
- try{let r=await fetch('data.json');accounts=await r.json();}
- catch(e){accounts=window.AUDIT_SIGNAL_DATA||[];}
- accounts=accounts.map(x=>({...extraDefaults,...x}));
- let cats=[...new Set(accounts.map(x=>x.category).filter(Boolean))].sort();
- cats.forEach(c=>{let o=document.createElement('option');o.value=c;o.textContent=c;$('category').appendChild(o)});
- render();
+
+function save(){ localStorage.setItem('signal30_demo_stage',JSON.stringify(state)) }
+
+function list(){
+  let q=$('search').value.toLowerCase();
+  return DATA.filter(d=>(category==='all'||d.seg===category)&&(stage==='all'||(state[d.id]||'Research')===stage)&&(!q||JSON.stringify(d).toLowerCase().includes(q)))
 }
-function filtered(){let q=$('q').value.toLowerCase(),cat=$('category').value,conf=$('confidence').value,stage=$('stage').value;return accounts.filter(a=>{let text=JSON.stringify(a).toLowerCase();return(!q||text.includes(q))&&(!cat||a.category===cat)&&(!conf||a.confidence===conf)&&(!stage||a.stage===stage)})}
-function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
-function render(){let list=filtered();$('total').textContent=list.length;$('verified').textContent=list.filter(a=>a.verification_status==='Verified').length;$('p1').textContent=list.filter(a=>a.priority==='P1').length;$('contacted').textContent=list.filter(a=>['Contacted','Replied','Qualified'].includes(a.stage)).length;
-$('grid').innerHTML=list.length?list.map((a,i)=>`<article class="card"><div class="top"><div><span class="rank">#${esc(a.rank)}</span><h2>${esc(a.account)}</h2></div><span class="tag">${esc(a.priority)}</span></div><span class="tag">${esc(a.category)}</span><span class="tag ${a.verification_status==='Verified'?'good':'warn'}">${esc(a.verification_status)}</span><div class="label">Signal</div><div class="value">${esc(a.signal)}</div><div class="label">Audit hypothesis</div><div class="value">${esc(a.audit_hypothesis)}</div><div class="label">Target</div><div class="value">${esc(a.technical_contact||a.target_role)}</div><div class="actions"><button onclick="openModal(${accounts.indexOf(a)})">Open record</button><a href="${esc(a.website)}" target="_blank" rel="noopener">Website</a></div></article>`).join(''):'<div class="empty">No matching accounts.</div>'}
-function openModal(i){let a=accounts[i];$('modalContent').innerHTML=`<h2>${esc(a.account)}</h2><p class="label">${esc(a.category)} · ${esc(a.stage)} · ${esc(a.priority)}</p><p><strong>Signal:</strong><br>${esc(a.signal)}</p><p><strong>Audit hypothesis:</strong><br>${esc(a.audit_hypothesis)}</p><label class="label">Signal date</label><input id="m_signal_date" value="${esc(a.signal_date)}"><label class="label">Source URL</label><input id="m_source_url" value="${esc(a.source_url||a.website)}"><label class="label">Audit status</label><input id="m_audit_status" value="${esc(a.audit_status)}"><label class="label">Technical contact</label><input id="m_technical_contact" value="${esc(a.technical_contact)}"><label class="label">Verification status</label><select id="m_verification_status"><option>Unverified</option><option>Partially verified</option><option>Verified</option><option>Disqualified</option></select><label class="label">Priority</label><select id="m_priority"><option>P1</option><option>P2</option><option>P3</option></select><label class="label">Stage</label><select id="m_stage"><option>Research</option><option>Verified</option><option>Ready to contact</option><option>Contacted</option><option>Replied</option><option>Qualified</option><option>Disqualified</option></select><label class="label">Next action</label><textarea id="m_next_action">${esc(a.next_action)}</textarea><button onclick="saveRecord(${i})">Save in browser</button>`;$('m_verification_status').value=a.verification_status;$('m_priority').value=a.priority;$('m_stage').value=a.stage;$('modal').classList.add('open')}
-function closeModal(){$('modal').classList.remove('open')}
-function saveRecord(i){let a=accounts[i];a.signal_date=$('m_signal_date').value;a.source_url=$('m_source_url').value;a.audit_status=$('m_audit_status').value;a.technical_contact=$('m_technical_contact').value;a.verification_status=$('m_verification_status').value;a.priority=$('m_priority').value;a.stage=$('m_stage').value;a.next_action=$('m_next_action').value;a.last_checked=new Date().toISOString().slice(0,10);localStorage.setItem('auditsignal30',JSON.stringify(accounts));closeModal();render()}
-function csvEscape(v){return '"'+String(v??'').replaceAll('"','""')+'"'}
-function exportCSV(){let list=filtered(),keys=[...new Set(list.flatMap(Object.keys))],csv=[keys.join(',')].concat(list.map(a=>keys.map(k=>csvEscape(a[k])).join(','))).join('\n'),blob=new Blob([csv],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),x=document.createElement('a');x.href=url;x.download='auditsignal30_filtered.csv';x.click();URL.revokeObjectURL(url)}
-['q','category','confidence','stage'].forEach(id=>$(id).addEventListener('input',render));$('export').addEventListener('click',exportCSV);$('reset').addEventListener('click',()=>{['q','category','confidence','stage'].forEach(id=>$(id).value='');render()});
-const saved=localStorage.getItem('auditsignal30');if(saved){try{window.AUDIT_SIGNAL_DATA=JSON.parse(saved)}catch(e){}}load();
+
+function render(){
+  let items=list();
+  $('cards').innerHTML=items.length?items.map(d=>{
+    let s=state[d.id]||'Research';
+    let isOpen = openCards.has(d.id) ? 'open' : '';
+    return `<article class="card ${isOpen}" id="card-${d.id}">
+      <div class="card-head" data-id="${d.id}">
+        <div><div class="name">${d.name}</div><div class="seg">${d.seg}</div></div>
+        <span class="badge">${d.conf}</span>
+      </div>
+      <div class="body">
+        <div class="row"><div class="k">Observed</div><p>${d.observed}</p></div>
+        <div class="row"><div class="k">Why it matters</div><p>${d.fit}</p></div>
+        <div class="row gap"><div class="k">Evidence gap</div><p>${d.gap}</p></div>
+        <div class="source">${d.source} · <a href="${d.url}" target="_blank" rel="noopener">View source</a></div>
+        <div class="stage">
+          <span class="k" style="align-self:center;margin-right:3px">Stage</span>
+          ${STAGES.map(x=>`<button class="${x===s?'current':''}" data-id="${d.id}" data-stage="${x}">${x}</button>`).join('')}
+        </div>
+      </div>
+    </article>`
+  }).join(''):'<div class="empty">No signals match this view.</div>';
+  
+  updateStats();
+  
+  // Attach Event Listeners safely
+  document.querySelectorAll('.card-head').forEach(x=>{
+    x.onclick=()=>{
+      let id = x.dataset.id;
+      if(openCards.has(id)) openCards.delete(id);
+      else openCards.add(id);
+      x.parentElement.classList.toggle('open');
+    }
+  });
+
+  document.querySelectorAll('.stage button').forEach(x=>{
+    x.onclick=e=>{
+      e.stopPropagation();
+      state[x.dataset.id]=x.dataset.stage;
+      save();
+      render();
+    }
+  });
+}
+
+function updateStats(){
+  let contacted=Object.values(state).filter(x=>x==='Contacted').length;
+  let verified=Object.values(state).filter(x=>x==='Verified').length;
+  $('total').textContent=DATA.length;
+  $('verified').textContent=verified;
+  $('contacted').textContent=contacted;
+  $('actionable').textContent=DATA.filter(x=>['Verified','Contacted'].includes(state[x.id])).length;
+  $('liveText').textContent=`LIVE DEMO · ${DATA.length} SIGNALS LOADED`;
+}
+
+// FIX: Deduplicate categories using Set
+const uniqueCategories = [...new Set(DATA.map(d => d.seg))];
+uniqueCategories.forEach(seg => {
+  let o=document.createElement('option');
+  o.value=seg;
+  o.textContent=seg;
+  $('filter').appendChild(o);
+});
+
+$('filter').onchange=e=>{category=e.target.value;render()};$('search').oninput=render;
+
+document.querySelectorAll('[data-stage]').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('[data-stage]').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  stage=b.dataset.stage;
+  render();
+});
+
+$('reset').onclick=()=>{
+  category='all';
+  stage='all';
+  $('search').value='';$('filter').value='all';
+  openCards.clear();
+  document.querySelectorAll('[data-stage]').forEach(x=>x.classList.toggle('active',x.dataset.stage==='all'));
+  render();
+};
+
+render();
 </script>
-</body></html>
+</body>
+</html>
